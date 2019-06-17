@@ -29,5 +29,7 @@ namespace SS.Annotator.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SS.Annotator.Models.TextResource> TextResources { get; set; }
     }
 }
