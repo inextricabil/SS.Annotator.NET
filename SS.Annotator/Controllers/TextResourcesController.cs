@@ -35,18 +35,6 @@ namespace SS.Annotator.Controllers
         // GET: TextResources/Create
         public ActionResult Create()
         {
-            ViewBag.Languages = new SelectList(new[]
-            {
-                new SelectListItem { Text = "English", Value = "English", Selected = true },
-                new SelectListItem { Text = "Română", Value = "Română", Selected = false }
-            });
-
-            ViewBag.AnnotationModes = new SelectList(new[]
-            {
-                new SelectListItem { Text = "Semi-supervised", Value = "Semi-supervised", Selected = true },
-                new SelectListItem { Text = "Unsupervised", Value = "Unsupervised", Selected = false }
-            });
-
             return View();
         }
 

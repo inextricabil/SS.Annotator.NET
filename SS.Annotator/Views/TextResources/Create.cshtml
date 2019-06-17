@@ -1,56 +1,148 @@
 ﻿@model SS.Annotator.Models.TextResource
 
 @{
-    ViewBag.Title = "Create";
+    ViewData["Title"] = "Create";
+}
+<link href="~/Content/custom-css/text-resources/create-text-resource.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/custom-js/text-processing/get-places.js"></script>
+<script src="~/Scripts/custom-js/text-resources/create-text-resource.js"></script>
+
+<script src="~/Scripts/custom-js/external-libs/bootstrap.min.js"></script>
+<script src="~/Scripts/custom-js/external-libs/jquery-3.2.1.slim.min.js"></script>
+<script src="~/Scripts/custom-js/external-libs/popper.min.js"></script>
+
+@{
+    var languages = new SelectList(
+        new List<SelectListItem>
+    {
+        new SelectListItem { Text = "English", Value = "English", Selected = true },
+        new SelectListItem { Text = "Română", Value = "Română", Selected = false  }
+    }, "Value", "Text");
+
+    var annotationModes = new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Semi-supervised", Value = "Semi-supervised", Selected = true },
+            new SelectListItem { Text = "Unsupervised", Value = "Unsupervised", Selected = false }
+        }, "Value", "Text");
 }
 
-<h2>Create</h2>
+<h2>Create Text Resource</h2>
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <form action="@Url.Action("Create")">
 
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>TextResource</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            @*Dropdown buttons*@
+            <div class="container p-y-1">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownListFor(m => m.Language, languages, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.AnnotationMode, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownListFor(m => m.AnnotationMode, annotationModes, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AnnotationMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AnnotationMode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AnnotationMode, "", new { @class = "text-danger" })
+            @*Nav pills buttons*@
+            <div class="container p-y-1">
+                <ul class="nav nav-pills">
+                    <li class="active"><a id="PillsText" data-toggle="pill" href="#pills-text-message">Text</a></li>
+                    <li><a data-toggle="pill" href="#pills-file">File</a></li>
+                </ul>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Language, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+            <div class="tab-content">
+                <div id="pills-text-message" class="tab-pane fade in active">
+                    <div class="container p-y-1">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-block mb-1 p-y-1" id="AnnotateButton" disabled="disabled">Annotate</button>
+
+                            <div class="mb-1">
+                                <label class="control-label" for="CurrentSelection">Current Selection</label>
+                                <input class="form-control" id="CurrentSelection" disabled="disabled" />
+                            </div>
+
+                            <textarea id="TextBoxControl" asp-for="Text" class="form-control"></textarea>
+                            <span asp-validation-for="Text" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="pills-file" class="tab-pane fade">
+                    <div class="container p-y-1">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()"><strong>Add File</strong></button>
+                                <div class="form-group drag-and-drop-input">
+                                    <label class="sr-only" for="inputFile">File Upload</label>
+                                    <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="text" onchange="readUrl(this)" data-title="Drag and drop a file">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            @*Bottom buttons*@
+            <div class="container p-y-1">
+                <div class="form-group pull-left">
+                    <a href="@Url.Action("Index")" class="btn btn-default">Back to List</a>
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+                <div class="form-group pull-right">
+                    <button id="GetPlaces" class="btn btn-default" type="button">Extract Places</button>
+                    <button id="GetTIMEXs" class="btn btn-default" type="button">Extract TIMEXs</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*Modal*@
+
+<div id="AnnotateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog annotate-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Create element: </strong><span id="ModalSelection"></span></h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="ModalTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="event-tab" data-toggle="tab" href="#event" role="tab" aria-controls="event" aria-selected="true">EVENT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="time-tab" data-toggle="tab" href="#timex" role="tab" aria-controls="timex" aria-selected="false">TIMEX3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="signal-tab" data-toggle="tab" href="#signal" role="tab" aria-controls="signal" aria-selected="false">SIGNAL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tlink-tab" data-toggle="tab" href="#tlink" role="tab" aria-controls="tlink" aria-selected="false">TLINK</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="slink-tab" data-toggle="tab" href="#slink" role="tab" aria-controls="slink" aria-selected="false">SLINK</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="alink-tab" data-toggle="tab" href="#alink" role="tab" aria-controls="alink" aria-selected="false">ALINK</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="event" role="tabpanel" aria-labelledby="event-tab">...</div>
+                    <div class="tab-pane fade" id="timex" role="tabpanel" aria-labelledby="timex-tab">...</div>
+                    <div class="tab-pane fade" id="signal" role="tabpanel" aria-labelledby="signal-tab">...</div>
+                    <div class="tab-pane fade" id="tlink" role="tabpanel" aria-labelledby="tlink-tab">...</div>
+                    <div class="tab-pane fade" id="slink" role="tabpanel" aria-labelledby="slink-tab">...</div>
+                    <div class="tab-pane fade" id="slink" role="tabpanel" aria-labelledby="alink-tab">...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

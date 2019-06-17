@@ -208,6 +208,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom-css\text-resources\create-resource-file-upload-control.css" />
+    <Content Include="Content\custom-css\text-resources\create-text-resource.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -215,6 +217,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\custom-js\external-libs\bootstrap.min.js" />
+    <Content Include="Scripts\custom-js\external-libs\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\custom-js\external-libs\popper.min.js" />
+    <Content Include="Scripts\custom-js\text-processing\get-places.js" />
+    <Content Include="Scripts\custom-js\text-resources\create-text-resource.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

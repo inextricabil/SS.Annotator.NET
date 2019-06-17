@@ -1,45 +1,42 @@
 ﻿@model IEnumerable<SS.Annotator.Models.TextResource>
 
 @{
-    ViewBag.Title = "Index";
+    ViewData["Title"] = "Index";
 }
+<link href="~/Content/custom-css/text-resources/create-text-resource.css" rel="stylesheet" />
 
-<h2>Index</h2>
-
+<h2>Text Resources</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-default"><span class="glyphicon glyphicon-plus padding-right-xs"></span>Create New</a>
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AnnotationMode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Language)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnnotationMode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Language)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TextResourceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TextResourceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TextResourceId })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Language)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", item.TextResourceId)">Edit</a> |
+                    <a href="@Url.Action("Details", item.TextResourceId)">Details</a> |
+                    <a href="@Url.Action("Delete", item.TextResourceId)">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

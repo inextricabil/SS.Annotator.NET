@@ -19,7 +19,7 @@ namespace SS.Annotator.Controllers
             ViewBag.Message = "Your application description page.";
 
             var service = new NamedEntityRecognitionService();
-            var result = service.GetPlacesIndexes("John is in New York. He wants to go to Turkey.");
+            var result = service.GetPlaces("John is in New York. He wants to go to Turkey.");
 
             return View();
         }

@@ -1,38 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 using SS.Annotator.Models;
 using Stanford.NLP.NER.CSharp.Interfaces;
+using Stanford.NLP.NER.CSharp.Services;
 using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 
 namespace SS.Annotator.Controllers
 {
-    [Route("api/TextProcessing")]
-    public class TextProcessingController : Controller
+    public class TextProcessingController : ApiController
     {
         private readonly INamedEntityRecognitionService _namedEntityRecognitionService;
 
-        public TextProcessingController(INamedEntityRecognitionService namedEntityRecognitionService)
+        public TextProcessingController()
         {
-            _namedEntityRecognitionService = namedEntityRecognitionService;
+            _namedEntityRecognitionService = new NamedEntityRecognitionService();
         }
 
         // POST: api/TextProcessing/GetPlaces
         [HttpPost]
+        [Route("api/TextProcessing/GetPlaces")]
         public JObject GetPlaces([FromBody]GetPlacesRequest getPlacesRequest)
         {
-            var placeIndexes = _namedEntityRecognitionService.GetPlacesIndexes(getPlacesRequest.Text);
+            var places = _namedEntityRecognitionService.GetPlaces(getPlacesRequest.Text);
 
-            var placeIndexesArray = new JArray();
-            foreach (var index in placeIndexes)
+            var placesArray = new JArray();
+            foreach (var place in places)
             {
-                placeIndexesArray.Add(index);
+                placesArray.Add(place);
             }
 
             dynamic jsonResponse = new JObject();
-            jsonResponse.placeIndexesArray = placeIndexesArray;
+            jsonResponse.placesArray = placesArray;
 
             return jsonResponse;
         }

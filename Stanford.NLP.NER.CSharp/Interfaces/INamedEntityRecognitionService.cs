@@ -2,6 +2,6 @@
 {
     public interface INamedEntityRecognitionService
     {
-        int[] GetPlacesIndexes(string text);
+        string[] GetPlaces(string text);
     }
 }
