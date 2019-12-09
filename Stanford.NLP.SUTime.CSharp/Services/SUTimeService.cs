@@ -6,6 +6,7 @@ using edu.stanford.nlp.util;
 using java.util;
 using Stanford.NLP.SUTime.CSharp.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Stanford.NLP.SUTime.CSharp
@@ -15,7 +16,7 @@ namespace Stanford.NLP.SUTime.CSharp
 
         public string[] GetTimexs(string text)
         {
-            var jarRoot = Environment.CurrentDirectory + @"\nlp.stanford.edu\stanford-corenlp-full-2016-10-31\models";
+            var jarRoot = Environment.CurrentDirectory + @"\stanford-corenlp-full-2016-10-31";
             var modelsDirectory = jarRoot + @"\edu\stanford\nlp\models";
 
             // Annotation pipeline configuration
@@ -33,6 +34,7 @@ namespace Stanford.NLP.SUTime.CSharp
                               + modelsDirectory + @"\sutime\english.holidays.sutime.txt,"
                               + modelsDirectory + @"\sutime\english.sutime.txt";
             var props = new Properties();
+            props.setProperty("ner.useSUTime", "false");
             props.setProperty("sutime.rules", sutimeRules);
             props.setProperty("sutime.binders", "0");
             pipeline.addAnnotator(new TimeAnnotator("sutime", props));
@@ -40,23 +42,25 @@ namespace Stanford.NLP.SUTime.CSharp
             // Sample text for time expression extraction
             //var text = "Three interesting dates are 18 Feb 1997, the 20th of july and 4 days from today.";
             var annotation = new Annotation(text);
-            annotation.set(new CoreAnnotations.DocDateAnnotation().getClass(), "2013-07-14");
+            annotation.set(new CoreAnnotations.DocDateAnnotation().getClass(), DateTime.Now.ToString("yyyy-MM-dd"));
             pipeline.annotate(annotation);
 
-            var sb = new StringBuilder();
-            sb.AppendLine(annotation.get(new CoreAnnotations.TextAnnotation().getClass()).ToString());
+            //var sb = new StringBuilder();
+            //sb.AppendLine(annotation.get(new CoreAnnotations.TextAnnotation().getClass()).ToString());
 
             var timexAnnsAll = annotation.get(new TimeAnnotations.TimexAnnotations().getClass()) as java.util.ArrayList;
+            List<string> results = new List<string>();
             foreach (CoreMap cm in timexAnnsAll)
             {
                 var tokens = cm.get(new CoreAnnotations.TokensAnnotation().getClass()) as List;
                 var first = tokens.get(0);
                 var last = tokens.get(tokens.size() - 1);
                 var time = cm.get(new TimeExpression.Annotation().getClass()) as TimeExpression;
-                sb.AppendLine($"{cm} [from char offset {first} to {last}] --> {time.getTemporal()}");
+                var timex = cm.get(new TimeAnnotations.TimexAnnotation().getClass());
+                results.Add($"{cm} --> {timex.ToString()}");
+                //sb.AppendLine($"{cm} [from char offset {first} to {last}] --> {time.getTemporal()}");
             }
-
-            return new string[0];
+            return results.ToArray();
         }
     }
 }

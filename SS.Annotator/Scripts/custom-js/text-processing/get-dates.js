@@ -1,9 +1,13 @@
 ﻿$(function () {
-
+    
     function paintDates(datesArray) {
-        datesArray.forEach(function(date) {
-            console.log(date);
-        });
+        $("#ResultsModal").modal();
+        $("#ResultsModalTitle").html("<strong>Dates</strong>");
+        $("#ResultsModalContent").html(datesArray.join("<br/>"));
+        //datesArray.forEach(function(date) {
+        //    console.log(date);
+        //    $("#ResultsModalContent").innerText = $("#ResultsModalContent").innerText + date + "<br/>";
+        //});
     }
 
     $("#GetDates").click(function () {

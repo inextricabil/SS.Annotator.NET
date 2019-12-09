@@ -1,9 +1,13 @@
 ﻿$(function () {
 
     function paintPlaces(placesArray) {
-        placesArray.forEach(function(place) {
-            console.log(place);
-        });
+        $("#ResultsModal").modal();
+        $("#ResultsModalTitle").html("<strong>Places</strong>");
+        $("#ResultsModalContent").html(placesArray.join("<br/>"));
+        //placesArray.forEach(function(place) {
+        //    console.log(place);
+        //    $("#ResultsModalContent").innerText = $("#ResultsModalContent").innerText + place + "<br/>";
+        //});
     }
     
     $("#GetPlaces").click(function() {

@@ -1,9 +1,13 @@
 ﻿$(function () {
 
     function paintPersons(personsArray) {
-        personsArray.forEach(function(person) {
-            console.log(person);
-        });
+        $("#ResultsModal").modal();
+        $("#ResultsModalTitle").html("<strong>Persons</strong>");
+        $("#ResultsModalContent").html(personsArray.join("<br/>"));
+        //personsArray.forEach(function(person) {
+        //    console.log(person);
+        //    $("#ResultsModalContent").innerText = $("#ResultsModalContent").innerText + person + "<br/>";
+        //});
     }
 
     $("#GetPersons").click(function () {

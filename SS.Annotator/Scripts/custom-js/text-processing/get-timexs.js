@@ -1,9 +1,17 @@
 ﻿$(function () {
 
     function paintTimexs(timexsArray) {
-        timexsArray.forEach(function(timex) {
-            console.log(timex);
-        });
+        $("#ResultsModal").modal();
+        $("#ResultsModalTitle").html("<strong>TIMEXs</strong>");
+        for (var i = 0; i < timexsArray.length; i++) {
+            var newDiv = document.createElement("div");
+            newDiv.innerText = timexsArray[i];
+            document.getElementById("ResultsModalContent").appendChild(newDiv);
+        }
+        //timexsArray.forEach(function(timex) {
+        //    console.log(timex);
+        //    $("#ResultsModalContent").innerText = $("#ResultsModalContent").innerText + timex + "<br/>";
+        //});
     }
 
     $("#GetTIMEXs").click(function () {
