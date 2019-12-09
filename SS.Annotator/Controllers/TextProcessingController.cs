@@ -51,7 +51,7 @@ namespace SS.Annotator.Controllers
             }
 
             dynamic jsonResponse = new JObject();
-            jsonResponse.placesArray = timexsArray;
+            jsonResponse.timexsArray = timexsArray;
 
             return jsonResponse;
         }
