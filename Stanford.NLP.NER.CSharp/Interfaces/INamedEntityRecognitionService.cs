@@ -4,6 +4,6 @@
     {
         string[] GetPlaces(string text);
         string[] GetTimexs(string text);
-
+        string[] GetPersons(string text);
     }
 }

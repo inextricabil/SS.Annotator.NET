@@ -55,5 +55,24 @@ namespace SS.Annotator.Controllers
 
             return jsonResponse;
         }
+
+        // POST: api/TextProcessing/GetPersons
+        [HttpPost]
+        [Route("api/TextProcessing/GetPersons")]
+        public JObject GetPersons([FromBody]GetPersonsRequest getPersonsRequest)
+        {
+            var persons = _namedEntityRecognitionService.GetPersons(getPersonsRequest.Text);
+
+            var personsArray = new JArray();
+            foreach (var person in persons)
+            {
+                personsArray.Add(person);
+            }
+
+            dynamic jsonResponse = new JObject();
+            jsonResponse.personsArray = personsArray;
+
+            return jsonResponse;
+        }
     }
 }

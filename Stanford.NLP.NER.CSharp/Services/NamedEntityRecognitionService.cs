@@ -56,5 +56,26 @@ namespace Stanford.NLP.NER.CSharp.Services
 
             return timexs.Select(timex => timex.ToString()).ToArray();
         }
+        public string[] GetPersons(string text)
+        {
+            var classifiersDirectory = Environment.CurrentDirectory + @"\stanford-ner-2016-10-31\classifiers";
+            var classifier = CRFClassifier.getClassifierNoExceptions(Path.Combine(classifiersDirectory, "english.muc.7class.distsim.crf.ser.gz"));
+            var xmlContent = classifier.classifyWithInlineXML(text);
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml($"<xml>{xmlContent}</xml>");
+
+            var personsElements = xmlDoc.GetElementsByTagName("PERSON");
+            var persons = new List<string>();
+            for (var i = 0; i < personsElements.Count; i++)
+            {
+                if (personsElements[i].InnerXml.Length > 0)
+                {
+                    persons.Add(personsElements[i].InnerXml);
+                }
+            }
+
+            return persons.Select(person => person.ToString()).ToArray();
+        }
     }
 }
