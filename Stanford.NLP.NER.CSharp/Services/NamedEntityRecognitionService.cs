@@ -35,7 +35,7 @@ namespace Stanford.NLP.NER.CSharp.Services
             return places.Select(place => place.ToString()).ToArray();
         }
 
-        public string[] GetTimexs(string text)
+        public string[] GetDates(string text)
         {
             var classifiersDirectory = Environment.CurrentDirectory + @"\stanford-ner-2016-10-31\classifiers";
             var classifier = CRFClassifier.getClassifierNoExceptions(Path.Combine(classifiersDirectory, "english.muc.7class.distsim.crf.ser.gz"));
@@ -44,17 +44,17 @@ namespace Stanford.NLP.NER.CSharp.Services
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml($"<xml>{xmlContent}</xml>");
 
-            var timexsElements = xmlDoc.GetElementsByTagName("DATE");
-            var timexs = new List<string>();
-            for (var i = 0; i < timexsElements.Count; i++)
+            var datesElements = xmlDoc.GetElementsByTagName("DATE");
+            var dates = new List<string>();
+            for (var i = 0; i < datesElements.Count; i++)
             {
-                if (timexsElements[i].InnerXml.Length > 0)
+                if (datesElements[i].InnerXml.Length > 0)
                 {
-                    timexs.Add(timexsElements[i].InnerXml);
+                    dates.Add(datesElements[i].InnerXml);
                 }
             }
 
-            return timexs.Select(timex => timex.ToString()).ToArray();
+            return dates.Select(date => date.ToString()).ToArray();
         }
         public string[] GetPersons(string text)
         {
@@ -76,6 +76,11 @@ namespace Stanford.NLP.NER.CSharp.Services
             }
 
             return persons.Select(person => person.ToString()).ToArray();
+        }
+
+        public string[] GetTimexs(string text)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -56,6 +56,25 @@ namespace SS.Annotator.Controllers
             return jsonResponse;
         }
 
+        // POST: api/TextProcessing/GetDates
+        [HttpPost]
+        [Route("api/TextProcessing/GetDates")]
+        public JObject GetDates([FromBody]GetDatesRequest getDatesRequest)
+        {
+            var dates = _namedEntityRecognitionService.GetDates(getDatesRequest.Text);
+
+            var datesArray = new JArray();
+            foreach (var date in dates)
+            {
+                datesArray.Add(date);
+            }
+
+            dynamic jsonResponse = new JObject();
+            jsonResponse.datesArray = datesArray;
+
+            return jsonResponse;
+        }
+
         // POST: api/TextProcessing/GetPersons
         [HttpPost]
         [Route("api/TextProcessing/GetPersons")]

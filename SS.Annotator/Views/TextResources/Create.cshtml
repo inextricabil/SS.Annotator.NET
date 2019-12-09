@@ -19,6 +19,7 @@
 
 <script src="~/Scripts/custom-js/text-processing/get-places.js"></script>
 <script src="~/Scripts/custom-js/text-processing/get-timexs.js"></script>
+<script src="~/Scripts/custom-js/text-processing/get-dates.js"></script>
 <script src="~/Scripts/custom-js/text-processing/get-persons.js"></script>
 
 @{
@@ -106,9 +107,10 @@ new SelectListItem { Text = "Unsupervised", Value = "Unsupervised", Selected = f
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
                 <div class="form-group pull-right">
-                    <button id="GetPlaces" class="btn btn-default" type="button">Extract Places</button>
-                    <button id="GetTIMEXs" class="btn btn-default" type="button">Extract TIMEXs</button>
                     <button id="GetPersons" class="btn btn-default" type="button">Extract Persons</button>
+                    <button id="GetPlaces" class="btn btn-default" type="button">Extract Places</button>
+                    <button id="GetDates" class="btn btn-default" type="button">Extract TIMEXs</button>
+                    <button id="GetTIMEXs" class="btn btn-default" type="button">Extract TIMEXs</button>
                 </div>
             </div>
         </form>

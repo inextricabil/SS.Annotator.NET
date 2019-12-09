@@ -197,6 +197,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\GetPersonsRequest.cs" />
+    <Compile Include="Models\GetDatesRequest.cs" />
     <Compile Include="Models\GetTimexsRequest.cs" />
     <Compile Include="Models\GetPlacesRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Scripts\custom-js\external-libs\popper.min.js" />
     <Content Include="Scripts\custom-js\text-processing\get-persons.js" />
     <Content Include="Scripts\custom-js\text-processing\get-places.js" />
+    <Content Include="Scripts\custom-js\text-processing\get-dates.js" />
     <Content Include="Scripts\custom-js\text-processing\get-timexs.js" />
     <Content Include="Scripts\custom-js\text-resources\create-resource-textarea.js" />
     <Content Include="Scripts\custom-js\text-resources\create-text-resource.js" />
