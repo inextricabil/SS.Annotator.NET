@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanford.NLP.NER.CSharp", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeBank.Domain", "TreeBank.Domain\TreeBank.Domain.csproj", "{7AC5F6C9-1557-4EBB-9200-BB9E128BDECB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanford.NLP.SUTime.CSharp", "Stanford.NLP.SUTime.CSharp\Stanford.NLP.SUTime.CSharp.csproj", "{82EEB2DD-C4C0-4414-B353-190F13716B2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7AC5F6C9-1557-4EBB-9200-BB9E128BDECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AC5F6C9-1557-4EBB-9200-BB9E128BDECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AC5F6C9-1557-4EBB-9200-BB9E128BDECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82EEB2DD-C4C0-4414-B353-190F13716B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82EEB2DD-C4C0-4414-B353-190F13716B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82EEB2DD-C4C0-4414-B353-190F13716B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82EEB2DD-C4C0-4414-B353-190F13716B2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

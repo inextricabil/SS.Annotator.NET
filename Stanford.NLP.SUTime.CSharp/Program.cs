@@ -1,4 +1,6 @@
-﻿using java.util;
+﻿using System.Collections;
+using System.Collections.Generic;
+using java.util;
 using java.io;
 using edu.stanford.nlp.pipeline;
 using edu.stanford.nlp.tagger.maxent;
@@ -45,15 +47,16 @@ namespace Stanford.NLP.SUTime.CSharp
 
             Console.WriteLine("{0}\n", annotation.get(new CoreAnnotations.TextAnnotation().getClass()));
 
-            var timexAnnsAll = annotation.get(new TimeAnnotations.TimexAnnotations().getClass()) as ArrayList;
-            foreach (CoreMap cm in timexAnnsAll)
-            {
-                var tokens = cm.get(new CoreAnnotations.TokensAnnotation().getClass()) as List;
-                var first = tokens.get(0);
-                var last = tokens.get(tokens.size() - 1);
-                var time = cm.get(new TimeExpression.Annotation().getClass()) as TimeExpression;
-                Console.WriteLine("{0} [from char offset {1} to {2}] --> {3}", cm, first, last, time.getTemporal());
-            }
+            var timexAnnsAll = annotation.get(new TimeAnnotations.TimexAnnotations().getClass()) as System.Collections.ArrayList;
+            if (timexAnnsAll != null)
+                foreach (CoreMap cm in timexAnnsAll)
+                {
+                    var tokens = cm.get(new CoreAnnotations.TokensAnnotation().getClass()) as List<>;
+                    var first = tokens.get(0);
+                    var last = tokens.get(tokens.size() - 1);
+                    var time = cm.get(new TimeExpression.Annotation().getClass()) as TimeExpression;
+                    Console.WriteLine("{0} [from char offset {1} to {2}] --> {3}", cm, first, last, time.getTemporal());
+                }
         }
     }
 }

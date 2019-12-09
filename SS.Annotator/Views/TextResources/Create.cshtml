@@ -4,8 +4,12 @@
     ViewData["Title"] = "Create";
 }
 <link href="~/Content/custom-css/text-resources/create-text-resource.css" rel="stylesheet" />
+<link href="~/Content/custom-css/text-resources/create-resource-textarea.css" rel="stylesheet" />
+<link href="~/Content/jquery.highlight-within-textarea.css" rel="stylesheet" />
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.highlight-within-textarea.js"></script>
+<script src="~/Scripts/custom-js/text-resources/create-resource-textarea.js"></script>
 <script src="~/Scripts/custom-js/text-processing/get-places.js"></script>
 <script src="~/Scripts/custom-js/text-resources/create-text-resource.js"></script>
 
@@ -17,15 +21,15 @@
     var languages = new SelectList(
         new List<SelectListItem>
     {
-        new SelectListItem { Text = "English", Value = "English", Selected = true },
-        new SelectListItem { Text = "Română", Value = "Română", Selected = false  }
+new SelectListItem { Text = "English", Value = "English", Selected = true },
+new SelectListItem { Text = "Română", Value = "Română", Selected = false  }
     }, "Value", "Text");
 
     var annotationModes = new SelectList(
         new List<SelectListItem>
         {
-            new SelectListItem { Text = "Semi-supervised", Value = "Semi-supervised", Selected = true },
-            new SelectListItem { Text = "Unsupervised", Value = "Unsupervised", Selected = false }
+new SelectListItem { Text = "Semi-supervised", Value = "Semi-supervised", Selected = true },
+new SelectListItem { Text = "Unsupervised", Value = "Unsupervised", Selected = false }
         }, "Value", "Text");
 }
 
@@ -68,6 +72,11 @@
 
                             <textarea id="TextBoxControl" asp-for="Text" class="form-control"></textarea>
                             <span asp-validation-for="Text" class="text-danger"></span>
+
+
+                            @*Prototype Textarea*@
+
+
                         </div>
                     </div>
                 </div>
