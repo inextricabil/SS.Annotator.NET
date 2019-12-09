@@ -39,15 +39,21 @@ namespace SS.Annotator.Controllers
 
         // POST: api/TextProcessing/GetTimeXs
         [HttpPost]
-        public IEnumerable<string> GetTimeXs([FromBody]string text)
+        [Route("api/TextProcessing/GetTimexs")]
+        public JObject GetTimeXs([FromBody]GetTimexsRequest getTimexsRequest)
         {
-            return new[] { text };
-        }
+            var timexs = _namedEntityRecognitionService.GetTimexs(getTimexsRequest.Text);
 
-        // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+            var timexsArray = new JArray();
+            foreach (var timex in timexs)
+            {
+                timexsArray.Add(timex);
+            }
+
+            dynamic jsonResponse = new JObject();
+            jsonResponse.placesArray = timexsArray;
+
+            return jsonResponse;
         }
     }
 }

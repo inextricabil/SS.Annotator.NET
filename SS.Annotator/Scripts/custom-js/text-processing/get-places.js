@@ -24,19 +24,4 @@
             }
         });
     });
-
-    $("#GetTIMEXs").click(function () {
-        const text = $("#TextBoxControl").val();
-        const getTimeXsApiUrl = window.location.protocol + "//" + window.location.host + "/api/TextProcessing/GetTimeXs";
-        //const getTimeXsApiUrl = @Url.Action("GetTimeXs", "TextProcessing");
-
-        $.ajax({
-            traditional: true,
-            type: "POST",
-            url: getTimeXsApiUrl,
-            data: text,
-            success: timeXsReceived(),
-            dataType: "json"
-        });
-    });
 });

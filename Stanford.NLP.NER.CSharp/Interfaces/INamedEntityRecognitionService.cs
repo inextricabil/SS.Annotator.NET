@@ -3,5 +3,7 @@
     public interface INamedEntityRecognitionService
     {
         string[] GetPlaces(string text);
+        string[] GetTimexs(string text);
+
     }
 }

@@ -34,5 +34,27 @@ namespace Stanford.NLP.NER.CSharp.Services
 
             return places.Select(place => place.ToString()).ToArray();
         }
+
+        public string[] GetTimexs(string text)
+        {
+            var classifiersDirectory = Environment.CurrentDirectory + @"\stanford-ner-2016-10-31\classifiers";
+            var classifier = CRFClassifier.getClassifierNoExceptions(Path.Combine(classifiersDirectory, "english.muc.7class.distsim.crf.ser.gz"));
+            var xmlContent = classifier.classifyWithInlineXML(text);
+
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml($"<xml>{xmlContent}</xml>");
+
+            var timexsElements = xmlDoc.GetElementsByTagName("DATE");
+            var timexs = new List<string>();
+            for (var i = 0; i < timexsElements.Count; i++)
+            {
+                if (timexsElements[i].InnerXml.Length > 0)
+                {
+                    timexs.Add(timexsElements[i].InnerXml);
+                }
+            }
+
+            return timexs.Select(timex => timex.ToString()).ToArray();
+        }
     }
 }
