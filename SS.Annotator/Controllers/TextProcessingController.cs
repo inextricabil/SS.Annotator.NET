@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SS.Annotator.Models;
 using Stanford.NLP.NER.CSharp.Interfaces;
 using Stanford.NLP.NER.CSharp.Services;
+using Stanford.NLP.SUTime.CSharp;
+using Stanford.NLP.SUTime.CSharp.Interfaces;
+using System.Web.Http;
 using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 
@@ -12,10 +13,12 @@ namespace SS.Annotator.Controllers
     public class TextProcessingController : ApiController
     {
         private readonly INamedEntityRecognitionService _namedEntityRecognitionService;
+        private readonly ISUTimeService _suTimeService;
 
         public TextProcessingController()
         {
             _namedEntityRecognitionService = new NamedEntityRecognitionService();
+            _suTimeService = new SUTimeService();
         }
 
         // POST: api/TextProcessing/GetPlaces
@@ -42,7 +45,7 @@ namespace SS.Annotator.Controllers
         [Route("api/TextProcessing/GetTimexs")]
         public JObject GetTimeXs([FromBody]GetTimexsRequest getTimexsRequest)
         {
-            var timexs = _namedEntityRecognitionService.GetTimexs(getTimexsRequest.Text);
+            var timexs = _suTimeService.GetTimexs(getTimexsRequest.Text);
 
             var timexsArray = new JArray();
             foreach (var timex in timexs)

@@ -4,16 +4,18 @@ using edu.stanford.nlp.tagger.maxent;
 using edu.stanford.nlp.time;
 using edu.stanford.nlp.util;
 using java.util;
-using Console = System.Console;
+using Stanford.NLP.SUTime.CSharp.Interfaces;
+using System;
+using System.Text;
 
 namespace Stanford.NLP.SUTime.CSharp
 {
-    class Program
+    public class SUTimeService : ISUTimeService
     {
-        private static void Main()
+
+        public string[] GetTimexs(string text)
         {
-            // Path to the folder with models extracted from `stanford-corenlp-3.7.0-models.jar`
-            var jarRoot = @"..\..\..\..\data\paket-files\nlp.stanford.edu\stanford-corenlp-full-2016-10-31\models";
+            var jarRoot = Environment.CurrentDirectory + @"\nlp.stanford.edu\stanford-corenlp-full-2016-10-31\models";
             var modelsDirectory = jarRoot + @"\edu\stanford\nlp\models";
 
             // Annotation pipeline configuration
@@ -36,12 +38,13 @@ namespace Stanford.NLP.SUTime.CSharp
             pipeline.addAnnotator(new TimeAnnotator("sutime", props));
 
             // Sample text for time expression extraction
-            var text = "Three interesting dates are 18 Feb 1997, the 20th of july and 4 days from today.";
+            //var text = "Three interesting dates are 18 Feb 1997, the 20th of july and 4 days from today.";
             var annotation = new Annotation(text);
             annotation.set(new CoreAnnotations.DocDateAnnotation().getClass(), "2013-07-14");
             pipeline.annotate(annotation);
 
-            Console.WriteLine("{0}\n", annotation.get(new CoreAnnotations.TextAnnotation().getClass()));
+            var sb = new StringBuilder();
+            sb.AppendLine(annotation.get(new CoreAnnotations.TextAnnotation().getClass()).ToString());
 
             var timexAnnsAll = annotation.get(new TimeAnnotations.TimexAnnotations().getClass()) as java.util.ArrayList;
             foreach (CoreMap cm in timexAnnsAll)
@@ -50,9 +53,10 @@ namespace Stanford.NLP.SUTime.CSharp
                 var first = tokens.get(0);
                 var last = tokens.get(tokens.size() - 1);
                 var time = cm.get(new TimeExpression.Annotation().getClass()) as TimeExpression;
-                Console.WriteLine("{0} [from char offset {1} to {2}] --> {3}",
-                                  cm, first, last, time.getTemporal());
+                sb.AppendLine($"{cm} [from char offset {first} to {last}] --> {time.getTemporal()}");
             }
+
+            return new string[0];
         }
     }
 }

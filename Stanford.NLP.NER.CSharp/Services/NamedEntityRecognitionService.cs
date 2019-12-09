@@ -56,6 +56,7 @@ namespace Stanford.NLP.NER.CSharp.Services
 
             return dates.Select(date => date.ToString()).ToArray();
         }
+
         public string[] GetPersons(string text)
         {
             var classifiersDirectory = Environment.CurrentDirectory + @"\stanford-ner-2016-10-31\classifiers";
@@ -76,11 +77,6 @@ namespace Stanford.NLP.NER.CSharp.Services
             }
 
             return persons.Select(person => person.ToString()).ToArray();
-        }
-
-        public string[] GetTimexs(string text)
-        {
-            throw new NotImplementedException();
         }
     }
 }

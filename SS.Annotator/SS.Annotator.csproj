@@ -303,6 +303,10 @@
       <Project>{4D9AF4ED-B531-4A80-BBEB-828101BD3F9D}</Project>
       <Name>Stanford.NLP.NER.CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Stanford.NLP.SUTime.CSharp\Stanford.NLP.SUTime.CSharp.csproj">
+      <Project>{82EEB2DD-C4C0-4414-B353-190F13716B2C}</Project>
+      <Name>Stanford.NLP.SUTime.CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
