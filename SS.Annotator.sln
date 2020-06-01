@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeBank.Domain", "TreeBank
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanford.NLP.SUTime.CSharp", "Stanford.NLP.SUTime.CSharp\Stanford.NLP.SUTime.CSharp.csproj", "{82EEB2DD-C4C0-4414-B353-190F13716B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Temporal.Domain", "Temporal.Domain\Temporal.Domain.csproj", "{18575091-8A94-48AB-8AD6-61E708169777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Temporal.Domain", "Temporal.Domain\Temporal.Domain.csproj", "{18575091-8A94-48AB-8AD6-61E708169777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTCoViD", "RTCoViD\RTCoViD.csproj", "{5CA5F33C-4BB2-4F07-AEF9-5005133D7A78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{18575091-8A94-48AB-8AD6-61E708169777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18575091-8A94-48AB-8AD6-61E708169777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18575091-8A94-48AB-8AD6-61E708169777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CA5F33C-4BB2-4F07-AEF9-5005133D7A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CA5F33C-4BB2-4F07-AEF9-5005133D7A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CA5F33C-4BB2-4F07-AEF9-5005133D7A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CA5F33C-4BB2-4F07-AEF9-5005133D7A78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
