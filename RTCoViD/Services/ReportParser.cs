@@ -49,6 +49,7 @@ namespace RTCoViD.Services
                 while (csv.Read())
                 {
                     var report = csv.GetRecord<Report>();
+                    report.DailyConfirmedReports = new List<DailyConfirmedReport>();
                     report.ReportId = Guid.NewGuid().ToString();
                     foreach (var column in csv.Context.HeaderRecord)
                     {
@@ -88,6 +89,7 @@ namespace RTCoViD.Services
                 {
                     var report = csv.GetRecord<Report>();
                     report.ReportId = Guid.NewGuid().ToString();
+                    report.DailyRecoveredReports = new List<DailyRecoveredReport>();
                     foreach (var column in csv.Context.HeaderRecord)
                     {
                         if (column == "Province/State" || column == "Country/Region" || column == "Lat" ||
@@ -127,6 +129,7 @@ namespace RTCoViD.Services
                 {
                     var report = csv.GetRecord<Report>();
                     report.ReportId = Guid.NewGuid().ToString();
+                    report.DailyDeathsReports = new List<DailyDeathsReport>();
                     foreach (var column in csv.Context.HeaderRecord)
                     {
                         if (column == "Province/State" || column == "Country/Region" || column == "Lat" ||
