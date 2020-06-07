@@ -12,6 +12,7 @@ namespace RTCoViD
             {
                 var tweets = tweetParser.GetTweets();
                 context.Tweet.AddRange(tweets);
+                context.SaveChanges();
             }
         }
     }

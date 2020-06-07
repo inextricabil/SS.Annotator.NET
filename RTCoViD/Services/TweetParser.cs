@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using CsvHelper;
@@ -31,6 +32,7 @@ namespace RTCoViD.Services
                     while (csv.Read())
                     {
                         var tweet = csv.GetRecord<Tweet>();
+                        tweet.TweetId = Guid.NewGuid().ToString();
                         tweets.Add(tweet);
                     }
                 }
