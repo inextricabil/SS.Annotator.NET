@@ -26,7 +26,7 @@ namespace RTCoViD
                 {
                     var context = services.GetRequiredService<RTCoViDContext>();
                     var tweetParser = services.GetRequiredService<ITweetParser>();
-                    DbInitializer.Seed(context, tweetParser);
+                    DbInitializer.Seed(context, tweetParser).Wait();
                 }
                 catch (Exception ex)
                 {

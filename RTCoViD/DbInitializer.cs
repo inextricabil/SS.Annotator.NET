@@ -1,18 +1,19 @@
 ﻿using RTCoViD.Data;
 using RTCoViD.Services;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RTCoViD
 {
     public class DbInitializer
     {
-        public static void Seed(RTCoViDContext context, ITweetParser tweetParser)
+        public static async Task Seed(RTCoViDContext context, ITweetParser tweetParser)
         {
             if (!context.Tweet.Any())
             {
                 var tweets = tweetParser.GetTweets();
-                context.Tweet.AddRange(tweets);
-                context.SaveChanges();
+                await context.Tweet.AddRangeAsync(tweets);
+                await context.SaveChangesAsync();
             }
         }
     }
