@@ -35,6 +35,7 @@ namespace RTCoViD
             });
 
             services.AddTransient<ITweetParser, TweetParser>();
+            services.AddTransient<IReportParser, ReportParser>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

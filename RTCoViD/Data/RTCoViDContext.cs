@@ -11,5 +11,9 @@ namespace RTCoViD.Data
         }
 
         public DbSet<Tweet> Tweet { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<DailyConfirmedReport> DailyConfirmedReports { get; set; }
+        public DbSet<DailyRecoveredReport> DailyRecoveredReports { get; set; }
+        public DbSet<DailyDeathsReport> DailyDeathsReports { get; set; }
     }
 }
