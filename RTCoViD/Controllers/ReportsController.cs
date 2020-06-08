@@ -33,12 +33,19 @@ namespace RTCoViD.Controllers
                 return NotFound();
             }
 
-            var report = await _context.Reports
+            var report = await _context.Reports.Include(r => r.DailyConfirmedReports)
+                .Include(r => r.DailyRecoveredReports)
+                .Include(r => r.DailyDeathsReports)
                 .FirstOrDefaultAsync(m => m.ReportId == id);
+
             if (report == null)
             {
                 return NotFound();
             }
+
+            report.DailyConfirmedReports = report.DailyConfirmedReports?.OrderByDescending(r => r.Date).ToList();
+            report.DailyRecoveredReports = report.DailyRecoveredReports?.OrderByDescending(r => r.Date).ToList();
+            report.DailyDeathsReports = report.DailyDeathsReports?.OrderByDescending(r => r.Date).ToList();
 
             return View(report);
         }
