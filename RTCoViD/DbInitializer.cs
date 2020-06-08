@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using RTCoViD.Data;
+﻿using RTCoViD.Data;
 using RTCoViD.Services;
 using System.Linq;
 using System.Threading.Tasks;
-using RTCoViD.Models;
 
 namespace RTCoViD
 {
@@ -23,7 +21,15 @@ namespace RTCoViD
         {
             if (!context.Reports.Any())
             {
-                var reports = reportParser.GetReports();
+                var confirmedReports = reportParser.GetConfirmedReports();
+                var deathsReports = reportParser.GetDeathsReports();
+                var recoveredReports = reportParser.GetRecoveredReports();
+
+                await context.Reports.AddRangeAsync(confirmedReports);
+                await context.Reports.AddRangeAsync(deathsReports);
+                await context.Reports.AddRangeAsync(recoveredReports);
+
+                await context.SaveChangesAsync();
             }
         }
     }

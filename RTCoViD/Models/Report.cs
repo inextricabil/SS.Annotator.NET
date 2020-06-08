@@ -7,8 +7,6 @@ namespace RTCoViD.Models
 {
     public class Report
     {
-
-        //Province/State,Country/Region,Last Update,Confirmed,Deaths,Recovered
         [Key]
         public string ReportId { get; set; }
         [Name("Province/State")]
