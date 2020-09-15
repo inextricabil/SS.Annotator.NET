@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using RTCoViD.Data;
 using RTCoViD.Services;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using RTCoViD.Models;
+using FastMember;
 
 namespace RTCoViD
 {
@@ -14,7 +18,34 @@ namespace RTCoViD
             if (!context.Tweet.Any())
             {
                 var tweets = tweetParser.GetTweets();
-                await context.Tweet.AddRangeAsync(tweets);
+                var connection = context.Database.GetDbConnection();
+                if (connection is SqlConnection)
+                {
+                    var sqlConnection = connection as SqlConnection;
+                    sqlConnection.Open();
+                    using (var sqlBulk = new SqlBulkCopy(sqlConnection))
+                    {
+                        sqlBulk.BatchSize = 5000;
+                        sqlBulk.DestinationTableName = "Tweet";
+                        sqlBulk.ColumnMappings.Add("TweetId", "TweetId");
+                        sqlBulk.ColumnMappings.Add("CreatedAt", "CreatedAt");
+                        sqlBulk.ColumnMappings.Add("Location", "Location");
+                        sqlBulk.ColumnMappings.Add("Text", "Text");
+                        sqlBulk.ColumnMappings.Add("UserId", "UserId");
+                        sqlBulk.ColumnMappings.Add("Verified", "Verified");
+                        var dataTable = new DataTable();
+                        using (var reader = ObjectReader.Create(tweets)) {
+                            dataTable.Load(reader);
+                        }
+                        sqlBulk.WriteToServer(dataTable);
+                    }
+                }
+            }
+
+            if (!context.GeneralTweets.Any())
+            {
+                var generalTweets = tweetParser.GetGeneralTweets();
+                await context.GeneralTweets.AddRangeAsync(generalTweets);
                 await context.SaveChangesAsync();
             }
         }
@@ -63,6 +94,13 @@ namespace RTCoViD
                 }
 
                 await context.Reports.AddRangeAsync(reports);
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.AllStatesReports.Any())
+            {
+                var reports = reportParser.GetAllStatesReports();
+                await context.AllStatesReports.AddRangeAsync(reports);
                 await context.SaveChangesAsync();
             }
         }

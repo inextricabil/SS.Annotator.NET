@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RTCoViD.Data;
 
 namespace RTCoViD.Migrations
 {
     [DbContext(typeof(RTCoViDContext))]
-    partial class RTCoViDContextModelSnapshot : ModelSnapshot
+    [Migration("20200914213435_AllStatesReportsStringDate")]
+    partial class AllStatesReportsStringDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,73 +28,73 @@ namespace RTCoViD.Migrations
 
                     b.Property<string>("Date");
 
-                    b.Property<double?>("Death");
+                    b.Property<double>("Death");
 
-                    b.Property<double?>("DeathConfirmed");
+                    b.Property<double>("DeathConfirmed");
 
-                    b.Property<double?>("DeathIncrease");
+                    b.Property<double>("DeathIncrease");
 
-                    b.Property<double?>("Hospitalized");
+                    b.Property<double>("Hospitalized");
 
-                    b.Property<double?>("HospitalizedIncrease");
+                    b.Property<double>("HospitalizedIncrease");
 
-                    b.Property<double?>("Negative");
+                    b.Property<double>("Negative");
 
-                    b.Property<double?>("NegativeIncrease");
+                    b.Property<double>("NegativeIncrease");
 
-                    b.Property<double?>("NegativeTestsAntibody");
+                    b.Property<double>("NegativeTestsAntibody");
 
-                    b.Property<double?>("NegativeTestsPeopleAntibody");
+                    b.Property<double>("NegativeTestsPeopleAntibody");
 
-                    b.Property<double?>("NegativeTestsViral");
+                    b.Property<double>("NegativeTestsViral");
 
-                    b.Property<double?>("OnVentilatorCumulative");
+                    b.Property<double>("OnVentilatorCumulative");
 
-                    b.Property<double?>("OnVentilatorCurrently");
+                    b.Property<double>("OnVentilatorCurrently");
 
-                    b.Property<double?>("Positive");
+                    b.Property<double>("Positive");
 
-                    b.Property<double?>("PositiveCasesViral");
+                    b.Property<double>("PositiveCasesViral");
 
-                    b.Property<double?>("PositiveIncrease");
+                    b.Property<double>("PositiveIncrease");
 
-                    b.Property<double?>("PositiveTestsAntibody");
+                    b.Property<double>("PositiveTestsAntibody");
 
-                    b.Property<double?>("PositiveTestsAntigen");
+                    b.Property<double>("PositiveTestsAntigen");
 
-                    b.Property<double?>("PositiveTestsPeopleAntibody");
+                    b.Property<double>("PositiveTestsPeopleAntibody");
 
-                    b.Property<double?>("PositiveTestsPeopleAntigen");
+                    b.Property<double>("PositiveTestsPeopleAntigen");
 
-                    b.Property<double?>("PositiveTestsViral");
+                    b.Property<double>("PositiveTestsViral");
 
-                    b.Property<double?>("Recovered");
+                    b.Property<double>("Recovered");
 
                     b.Property<string>("State");
 
-                    b.Property<double?>("TotalTestEncountersViral");
+                    b.Property<double>("TotalTestEncountersViral");
 
-                    b.Property<double?>("TotalTestEncountersViralIncrease");
+                    b.Property<double>("TotalTestEncountersViralIncrease");
 
-                    b.Property<double?>("TotalTestResults");
+                    b.Property<double>("TotalTestResults");
 
-                    b.Property<double?>("TotalTestResultsIncrease");
+                    b.Property<double>("TotalTestResultsIncrease");
 
-                    b.Property<double?>("TotalTestsAntibody");
+                    b.Property<double>("TotalTestsAntibody");
 
-                    b.Property<double?>("TotalTestsAntigen");
+                    b.Property<double>("TotalTestsAntigen");
 
-                    b.Property<double?>("TotalTestsPeopleAntibody");
+                    b.Property<double>("TotalTestsPeopleAntibody");
 
-                    b.Property<double?>("TotalTestsPeopleAntigen");
+                    b.Property<double>("TotalTestsPeopleAntigen");
 
-                    b.Property<double?>("TotalTestsPeopleViral");
+                    b.Property<double>("TotalTestsPeopleViral");
 
-                    b.Property<double?>("TotalTestsPeopleViralIncrease");
+                    b.Property<double>("TotalTestsPeopleViralIncrease");
 
-                    b.Property<double?>("TotalTestsViral");
+                    b.Property<double>("TotalTestsViral");
 
-                    b.Property<double?>("TotalTestsViralIncrease");
+                    b.Property<double>("TotalTestsViralIncrease");
 
                     b.HasKey("ReportId");
 
@@ -151,20 +153,6 @@ namespace RTCoViD.Migrations
                     b.HasIndex("ReportId");
 
                     b.ToTable("DailyRecoveredReports");
-                });
-
-            modelBuilder.Entity("RTCoViD.Models.GeneralTweet", b =>
-                {
-                    b.Property<string>("TweetId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedAt");
-
-                    b.Property<string>("Text");
-
-                    b.HasKey("TweetId");
-
-                    b.ToTable("GeneralTweets");
                 });
 
             modelBuilder.Entity("RTCoViD.Models.Report", b =>

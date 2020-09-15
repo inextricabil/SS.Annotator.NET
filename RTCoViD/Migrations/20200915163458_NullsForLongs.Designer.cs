@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RTCoViD.Data;
 
 namespace RTCoViD.Migrations
 {
     [DbContext(typeof(RTCoViDContext))]
-    partial class RTCoViDContextModelSnapshot : ModelSnapshot
+    [Migration("20200915163458_NullsForLongs")]
+    partial class NullsForLongs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,20 +153,6 @@ namespace RTCoViD.Migrations
                     b.HasIndex("ReportId");
 
                     b.ToTable("DailyRecoveredReports");
-                });
-
-            modelBuilder.Entity("RTCoViD.Models.GeneralTweet", b =>
-                {
-                    b.Property<string>("TweetId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedAt");
-
-                    b.Property<string>("Text");
-
-                    b.HasKey("TweetId");
-
-                    b.ToTable("GeneralTweets");
                 });
 
             modelBuilder.Entity("RTCoViD.Models.Report", b =>

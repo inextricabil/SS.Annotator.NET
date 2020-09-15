@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using CsvHelper.TypeConversion;
 using RTCoViD.Models;
 
 namespace RTCoViD.Services
@@ -33,6 +34,14 @@ namespace RTCoViD.Services
             var reportsFilesFolder = "Data" + Path.DirectorySeparatorChar + "reports";
             var reportsFilesFolderPath = Path.Combine(Directory.GetCurrentDirectory(), reportsFilesFolder,
                 "time_series_covid19_deaths_global.csv");
+            return reportsFilesFolderPath;
+        }
+
+        public string GetAllStatesReportsFilePath()
+        {
+            var reportsFilesFolder = "Data" + Path.DirectorySeparatorChar + "reports";
+            var reportsFilesFolderPath = Path.Combine(Directory.GetCurrentDirectory(), reportsFilesFolder,
+                "all-states-history.csv");
             return reportsFilesFolderPath;
         }
 
@@ -154,6 +163,27 @@ namespace RTCoViD.Services
 
             return reports;
         }
+
+        public IList<AllStatesReport> GetAllStatesReports()
+        {
+            var allStatesReportsFilePath = GetAllStatesReportsFilePath();
+            var allStatesReports = new List<AllStatesReport>();
+            using (TextReader reader = File.OpenText(allStatesReportsFilePath))
+            {
+                var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+                csv.Configuration.Delimiter = ",";
+                csv.Configuration.MissingFieldFound = null;
+                csv.Configuration.HeaderValidated = null;
+                while (csv.Read())
+                {
+                    var report = csv.GetRecord<AllStatesReport>();
+                    report.ReportId = Guid.NewGuid().ToString();
+                    allStatesReports.Add(report);
+                }
+            }
+
+            return allStatesReports;
+        }
     }
 
     public interface IReportParser
@@ -161,8 +191,12 @@ namespace RTCoViD.Services
         string GetConfirmedReportFilePath();
         string GetRecoveredReportFilePath();
         string GetDeathsReportFilePath();
+        string GetAllStatesReportsFilePath();
+
         IList<Report> GetConfirmedReports();
         IList<Report> GetRecoveredReports();
         IList<Report> GetDeathsReports();
+        IList<AllStatesReport> GetAllStatesReports();
+
     }
 }

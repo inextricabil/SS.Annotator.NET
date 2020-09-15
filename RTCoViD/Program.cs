@@ -26,11 +26,13 @@ namespace RTCoViD
                 {
                     var context = services.GetRequiredService<RTCoViDContext>();
 
-                    //var tweetParser = services.GetRequiredService<ITweetParser>();
-                    //DbInitializer.SeedTweets(context, tweetParser).Wait();
+                    var tweetParser = services.GetRequiredService<ITweetParser>();
+                    DbInitializer.SeedTweets(context, tweetParser).Wait();
 
                     var reportParser = services.GetRequiredService<IReportParser>();
                     DbInitializer.SeedReports(context, reportParser).Wait();
+
+                    RegressionCsvHelper.GetRegressionCsv(context);
                 }
                 catch (Exception ex)
                 {

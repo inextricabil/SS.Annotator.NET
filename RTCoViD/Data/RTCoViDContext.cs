@@ -15,5 +15,9 @@ namespace RTCoViD.Data
         public DbSet<DailyConfirmedReport> DailyConfirmedReports { get; set; }
         public DbSet<DailyRecoveredReport> DailyRecoveredReports { get; set; }
         public DbSet<DailyDeathsReport> DailyDeathsReports { get; set; }
+        public DbSet<AllStatesReport> AllStatesReports { get; set; }
+        public DbSet<GeneralTweet> GeneralTweets { get; set; }
+
+
     }
 }
